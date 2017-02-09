@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class GITCHECK : MonoBehaviour {
+    string CheckGIT = string.Empty;
 
 	// Use this for initialization
 	void Start () {
