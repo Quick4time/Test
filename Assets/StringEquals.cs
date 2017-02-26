@@ -22,8 +22,6 @@ public class StringEquals : MonoBehaviour {
     {
         Debug.Log(SearchString(stglarge, stgsearch).ToString());
 
-
-
             if (IsSame(stg1, stg2))
         {
             Debug.Log("IS SAME!!!");
