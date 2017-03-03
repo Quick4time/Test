@@ -11,7 +11,7 @@ public class Linq : MonoBehaviour {
     void Start ()
     {
         FindEnemiesOldWay();
-        NameUp();        
+        //NameUp();        
     }
 
     public void NameUp()

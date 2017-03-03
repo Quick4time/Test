@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WizardChar : MonoBehaviour {
+public class WizardChar : MonoBehaviour, IListener {
 
     public int Health
     {
         get { return _health; }
         set
         {_health = Mathf.Clamp(value, 0, 100);
-            //EventManager.Instance.PostNotification(EVENT_TYPE.HEALTH_CHANGE, this, _health);
+            EventManager.Instance.PostNotification(EVENT_TYPE.HEALTH_CHANGE, this, _health);
             /*if (_health <= 0)
             {
                 DestroyGM();
@@ -20,7 +20,7 @@ public class WizardChar : MonoBehaviour {
     {
         get { return _mana; }
         set { _mana = Mathf.Clamp(value, 0, 50);
-            //EventManager.Instance.PostNotification(EVENT_TYPE.MANA_CHANGE, this, _health);
+            EventManager.Instance.PostNotification(EVENT_TYPE.MANA_CHANGE, this, _mana);
             /*if (_mana <= 0)
             {
                 ManaLow();
@@ -28,20 +28,22 @@ public class WizardChar : MonoBehaviour {
             }*/
         }
     }
-    [SerializeField]
     private int _health;
-    [SerializeField]
     private int _mana;
     
+    void Awake()
+    {
+        _health = 60;
+        _mana = 30;
+    }
 
     void Start ()
-    {
-        MessagingSystem.Instance.AttachListener(typeof(DestroyMessege), this.HandleHurtMessage);
-        //EventManager.Instance.AddListener(EVENT_TYPE.HEALTH_CHANGE, this);
-        //EventManager.Instance.AddListener(EVENT_TYPE.MANA_CHANGE, this);
+    { 
+        EventManager.Instance.AddListener(EVENT_TYPE.HEALTH_CHANGE, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.MANA_CHANGE, this);
     }
     
-/*
+
     public void OnEvent(EVENT_TYPE Event_type, Component Sender, object Param = null)
     {
         switch (Event_type)
@@ -54,45 +56,40 @@ public class WizardChar : MonoBehaviour {
                 break;
         }
     }
-    void OnHealthChange(Component Enemy, int Damage)
+    void OnHealthChange(Component Enemy, int newHealth)
     {
-        if (this.GetInstanceID() != Enemy.GetInstanceID()) return;
-        Debug.Log("Object: " + gameObject.name + " Damaged: " + Damage.ToString());
+        if (Health <= 0)
+        {
+            Debug.Log("Health is Null");
+        }
+        Debug.Log("Object: " + gameObject.name + " Damaged: " + newHealth.ToString());
     }
-    void OnManaChange (Component Enemy, int newManaint)
+    void OnManaChange (Component Enemy, int newMana)
     {
-        if (this.GetInstanceID() != Enemy.GetInstanceID()) return;
-        newManaint = 10;
-        if(Input.GetKeyDown(KeyCode.Space))
-            Debug.Log("Object: " + gameObject.name + " Mana is: " + newManaint.ToString());
+            if (Mana <= 0)
+        {
+            Debug.Log("Mana is Null!");
+        }
+            Debug.Log("Object: " + gameObject.name + " Mana is: " + newMana.ToString());
     }
-    */
+    
     void Update()
     {
-        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Health -= 20;
-            Mana -= 30;
+            Health += 10;
         }
-        */
-        Debug.Log("Health: " + Health + "Mana: " + Mana);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Mana += 5;
+        }
     }
-    /*
-    void ManaLow()
-    {
-        Debug.Log("Hey Mana is: " + Mana);
-    }
-    void DestroyGM()
-    {
-        Destroy(gameObject);
-    }
-    */
-    bool HandleHurtMessage(BaseMessage msg)
+     /*
+    public bool HandleHurtMessage(BaseMessage msg)
     {
         DestroyMessege castMsg = msg as DestroyMessege;
-        _health = castMsg._damage;
-        _mana = castMsg._manaLow;
+        Health -= castMsg._damage;
+        Mana -= castMsg._manaLow;
         //Health -= castMsg._damage;
         //Mana -= castMsg._manaLow;
         return true;
@@ -104,4 +101,5 @@ public class WizardChar : MonoBehaviour {
             MessagingSystem.Instance.DetachListener(typeof(DestroyMessege), this.HandleHurtMessage);
         }
     }
+    */
 }
