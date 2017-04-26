@@ -21,7 +21,10 @@ public class UsingDictonary : MonoBehaviour {
         someGO[1] = GameObject.FindGameObjectWithTag("Enemy");//Resources.Load("Enemy") as GameObject;
         */
         ObjectDictonary.Add("Player", _prefab1);
+        //ObjectDictonary.Remove("Player");
+        //ObjectDictonary.Clear();//Очистить словарь.
         ObjectDictonary.Add("Enemy", _prefab2);
+
         PrefabPoolSystem_AsSingleton.Prespawn(ObjectDictonary["Player"], 4);
         PrefabPoolSystem_AsSingleton.Prespawn(ObjectDictonary["Enemy"], 2);
         //WordDatabase.Add("orc", 20);
@@ -55,7 +58,7 @@ public class UsingDictonary : MonoBehaviour {
             DespawnObject(_go2);
         }
         _myFloat *= 3f;
-        Debug.Log("" + _myFloat);
+        //Debug.Log("" + _myFloat);
     }
     void SpawnObjectPlayer (GameObject go, List<GameObject> list)
     {

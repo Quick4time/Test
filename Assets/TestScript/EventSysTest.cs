@@ -11,11 +11,13 @@ public class EventSysTest : MonoBehaviour, IListener {
         {
             _health =  Mathf.Clamp(value, 0, 100);
             EventManager.Instance.PostNotification(EVENT_TYPE.HEALTH_CHANGE, this, _health);
+            /*
             if (_health <= 0) 
             {
                 OnDead();             
                 return;
             }
+            */
         }
     }
     public int Ammo

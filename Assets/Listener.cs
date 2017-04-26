@@ -2,7 +2,7 @@
 using System.Collections;
 // 146 Интерфейс Listener
 
-    public enum EVENT_TYPE { GAME_INIT, GAME_END, AMMO_CHANGE, HEALTH_CHANGE, MANA_CHANGE, DEAD}
+    public enum EVENT_TYPE { GAME_INIT, GAME_END, AMMO_CHANGE, HEALTH_CHANGE, MANA_CHANGE, DEAD, FILLAMOUNT_CHANGE }
 
     public interface IListener
     {

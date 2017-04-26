@@ -9,7 +9,7 @@ public class Parenter : MonoBehaviour {
 	void Start () {
         Parent = GameObject.Find("Parent");
         Child = GameObject.Find("Child");
-        Child.transform.parent = Parent.transform; // Важно запомнить что transform.parent!!!! а не transform.position;
+        Child.transform.parent = Parent.transform; 
 	}
 }
 

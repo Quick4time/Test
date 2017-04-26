@@ -2,8 +2,8 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
-using System.Xml;
 using System.Linq;
+using System.Xml;
 using System.Reflection;
 //-------------------------------------------
 public class LanguageSelector
@@ -38,7 +38,7 @@ public class LanguageSelector
 		//Get language nodes
 		XmlNode[] LanguageNodes = (from XmlNode Node in xmlDoc.GetElementsByTagName("language")
 								   where Node.Attributes["id"].Value.ToString().Equals(LanguageName.ToLower())
-		                           select Node).ToArray();
+		                           select Node).ToArray();// Изменить сделать без linq
 
 		//If no matching node found, then exit
 		if(LanguageNodes.Length <= 0)
@@ -49,6 +49,7 @@ public class LanguageSelector
 
 		//Get text object
 		SampleGameMenu GM = Object.FindObjectOfType<SampleGameMenu>() as SampleGameMenu;
+        TMPro.LocalizTestScr LTS = Object.FindObjectOfType<TMPro.LocalizTestScr>() as TMPro.LocalizTestScr;
 
 		//Loop through child xml nodes
 		foreach (XmlNode Child in LanguageNode.ChildNodes)
@@ -82,6 +83,26 @@ public class LanguageSelector
 					}
 				}
 			}
+            foreach (var field in LTS.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy))
+            {
+                if (field.FieldType == typeof(System.String))
+                {
+                    System.Attribute[] attrs = field.GetCustomAttributes(true) as System.Attribute[];
+
+                    foreach (System.Attribute attr in attrs)
+                    {
+                        if (attr is LocalizationTextAttribute)
+                        {
+                            LocalizationTextAttribute LocalAttr = attr as LocalizationTextAttribute;
+
+                            if (LocalAttr.LocalizationID.Equals(TextID))
+                            {
+                                field.SetValue(LTS, LocalText);
+                            }
+                        }
+                    }
+                }
+            }
 		}
 	}
 }

@@ -16,7 +16,8 @@ public class CameraFollow : MonoBehaviour {
         ThisTransform = GetComponent<Transform>();
     }
 
-	void LateUpdate () {
+    void LateUpdate()
+    {
 
         Vector3 velocity = Vector3.zero;
         ThisTransform.rotation = Quaternion.Slerp(ThisTransform.rotation, Target.rotation, RotationDamp * Time.deltaTime);
@@ -25,5 +26,5 @@ public class CameraFollow : MonoBehaviour {
         ThisTransform.position = new Vector3(ThisTransform.position.x, CamHigh, ThisTransform.position.z);
         ThisTransform.LookAt(Dest);
 
-	}
+    }
 }

@@ -1,56 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ManualMouse : MonoBehaviour {
+public class ManualMouse : MonoBehaviour
+{
 
-    Collider Col = null;
-    
-
-	// Use this for initialization
-	void Awake () {
-        Col = GetComponent<Collider>();
-        
-	}
-
-    void Start () {
-        StartCoroutine(UpdateMouse());
+    private void Update()
+    {
+        ScreenMouseRay();
     }
-	// Попробовать изменить строчку 26-27 и переменные под 2D!!!!!!!!!! что бы работало сейчас работает некорректно.
-    public IEnumerator UpdateMouse ()
+    public void ScreenMouseRay()
     {
         bool bIntersected = false;
         bool bButtonDown = false;
 
-        while(true)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); ; //Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 5f;
 
-            if (Col.Raycast(ray, out hit, Mathf.Infinity))
+        Vector2 v = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        Collider2D[] col = Physics2D.OverlapPointAll(v);
+
+        if (col.Length > 0)
+        {
+            foreach (Collider2D c in col)
             {
                 if (!bIntersected)
                 {
-                    SendMessage("OnMouseEnter", SendMessageOptions.DontRequireReceiver);
                     Debug.Log("Enter");
                 }
-                    bIntersected = true;
+                bIntersected = true;
                 if (!bButtonDown && Input.GetMouseButton(0))
                 {
-                    bButtonDown = true; SendMessage("OnMouseDown", SendMessageOptions.DontRequireReceiver);
+                    bButtonDown = true;
                     Debug.Log("On Button Down");
                 }
+                if (c.gameObject.CompareTag("Player")) // для столкновения определенного коллайдера.
+                {
+                    print("collide with player");
+                }
+                /*
                 if (bButtonDown && !Input.GetMouseButton(0))
                 {
-                    if(bIntersected)
+                    if (bIntersected)
                     {
-                        SendMessage("OnMouseExit", SendMessageOptions.DontRequireReceiver);
                         Debug.Log("Exit");
                     }
                     bIntersected = false;
                     bButtonDown = false;
-                }
+
+                }*/
             }
-            yield return null;
+            //yield return null;
         }
     }
 }
