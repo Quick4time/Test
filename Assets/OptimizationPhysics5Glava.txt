@@ -1,0 +1,82 @@
+Страница 147.
+
+Статические и Динамические коллайдеры, статические это те к кторым не присоеденен компонент Rigidbody, следовательно к динамическим напротив они также подвержены импульсам при столкновении.
+Статические для неподвижных препятствий.
+
+Circle, Box, Polygon - Перечисление в порядке нагрузки на систему.
+
+Страница 162.
+
+Discrete(Дискретное Обнаружение столкновений) является самым предпочтительным, затем идет Continuous(Непрерывное) используется только когда Дискретный способ пропускает регистрацию столкновений(бысрое передвижение).
+И совсем редко использовать ContinuousDinamycs (Непрерывное Динамическое)
+
+Стараница 163.
+
+Изменение частоты фиксированых обновлений.
+Что бы не прибигать к виду обнаружений столкновений Continuous можно изменить частоту обновлений Edit -> ProjectSetting -> Time -> Fixed Timestep
+Изменять в коде: 
+
+// Sets to 20 fps
+Time.fixedDeltaTime = 0.05f;
+
+Example:
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour {
+    void Update() {
+        if (Input.GetButtonDown("Fire1")) {
+            if (Time.timeScale == 1.0F)
+                Time.timeScale = 0.7F;
+            else
+                Time.timeScale = 1.0F;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+        }
+    }
+}
+
+Edit -> ProjectSetting -> Time -> Maximum Allowed Time(Максимальная допустимая длительность)
+Изменять только когда нет другого выхода, этот параметр определяет крайний порообновления, дабы предотвратить зависание игры.
+
+Страница 164.
+
+Уменьшение отбрасываемых лучей особенно таких SphereCast(), CapsuleCast() (Лучше использовать Триггерные коллайдеры с CompareTag конечно).
+Примеры кода отбрасывания лучей:
+	
+	Так:
+
+    [SerializeField]
+    float _maxRaycastDistance;
+
+    void PerformRaycast()
+    {
+        RaycastHit hitInfo = new RaycastHit();
+        if(Physics.Raycast(new Ray2D(transform.position, transform.right), out hit, _maxRaycastDistance))
+        {
+            // Обработка результатов отбрасывания лучей.
+        }
+    }
+
+	||:
+	
+    [SerializeField]
+    float _maxRaycastDistance;
+	[SerializeField]
+	LayerMask _layerMask;
+
+    void PerformRaycast()
+    {Ц
+        RaycastHit hitInfo = new RaycastHit();
+        if(Physics.Raycast(new Ray2D(transform.position, transform.right), out hit, _maxRaycastDistance, _layerMask))
+        {
+            // Обработка результатов отбрасывания лучей.
+        }
+    }
+	
+Страница 172.
+
+Изменение количества итераций. Проход состояния движком изменяется в Physics.
+
+Страница 175.
+
+Превод активных физических объектов, при помощи метода IsSleeping();
