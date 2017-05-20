@@ -15,19 +15,19 @@ public class TestPoolingComp : MonoBehaviour, IPoolableComponent
             rb2dactive = !rb2dactive;
             if (rb2dactive)
             {
-
-                //Debug.Log("RB2D activ is: " + rb2dactive.ToString());
+                Debug.Log("RB2D activ is: " + rb2dactive.ToString());
             }
             else if (!rb2dactive)
             {
                 Despawned();
-                //Debug.Log("RB2D activ is: " + rb2dactive.ToString());
+                Debug.Log("RB2D activ is: " + rb2dactive.ToString());
             }
         }
     }
 
     public virtual void Spawned()
     {
+        rb2dactive = true;
         /*
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.velocity = Vector2.zero;
@@ -38,7 +38,7 @@ public class TestPoolingComp : MonoBehaviour, IPoolableComponent
     }
     public virtual void Despawned()
     {
-        Destroy(rb2d, 2.0f);
+        rb2dactive = false;
         Debug.Log(string.Format("Object despawned: {0}", gameObject.name));
     }
 }
