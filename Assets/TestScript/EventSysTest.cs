@@ -84,7 +84,6 @@ public class EventSysTest : MonoBehaviour, IListener {
     void OnHealthChange (Component Enemy, int NewHealth)
     {
         if (this.GetInstanceID() != Enemy.GetInstanceID()) return;
-        // Добавлять различные IF и тому подобные операторы.
 
         Debug.Log("Object: " + gameObject.name + "Health is: " + NewHealth.ToString());
     }

@@ -13,7 +13,7 @@ public class DataManager : MonoBehaviour, IGameManager {
     public void Startup()
     {
         Debug.Log("Data manager starting...");
-
+        // Путь C:\Users\lapan_000\AppData\Local // флажок должен устанавливаться true
         _filename = Path.Combine(Application.persistentDataPath, "game.dat"); // Генерируем полный путь к файлу game.dat.
 
         status = ManagerStatus.Started;

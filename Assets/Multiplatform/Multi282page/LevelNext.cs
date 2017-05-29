@@ -63,11 +63,11 @@ public class LevelNext : MonoBehaviour {
     }
     public void SaveGame()
     {
-        Managers.Data.SaveGameState();
+        Managers.Data.SaveGameState(); // Сохранение игры
     }
     public void LoadGame()
     {
-        Managers.Data.LoadGameState();
+        Managers.Data.LoadGameState(); // Загрузка игры
     }
 
 }
