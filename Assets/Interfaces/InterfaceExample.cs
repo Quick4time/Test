@@ -114,9 +114,9 @@ namespace InterfacePart2
         {
             Rocket rocket = new Rocket();
 
-            rocket.Header = new RocketHeader(); 
-            rocket.Engine = new HatersEngine(); // upcustom приводим наследника к родителю
+            rocket.Header = new RocketHeader();
 
+            rocket.Engine = new HatersEngine(); // upcustom приводим наследника к родителю
             Console.WriteLine("Хейтерская тяга: " + SpecialNasaMethod(rocket.Engine.Power, rocket.Weight));
 
             rocket.Engine = new CryEngine();
@@ -134,7 +134,6 @@ namespace InterfacePart2
             //Console.ReadKey();
 
         }
-
 
         public static int SpecialNasaMethod(int power, int mass) // метод для вычисления максимальной скорости
         {
