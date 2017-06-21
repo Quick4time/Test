@@ -10,8 +10,8 @@ namespace DelegateState
         #region ConfigurablePattern (Пояснение кода: обновляем исключительно состояние RobotAction() через свойство MyRobotAction);(Использование метода как переменной); 
         // Define delegate method signature.
         // Установвить делегату метод подписания.
-        public delegate void RobotAction();
-
+        public delegate void RobotAction(); // можно также в делегат записывать аргументы так как это своего рода метод, как переменная. Но присваемый метод должен иметь тот же тим и число аргументорв.
+        // Example delegate void ExampleDelegate(int a, bool b);
         public delegate void DelTest();
         // private property for delegate use.
         // Свойство для использования делегатом.
@@ -206,4 +206,149 @@ namespace DelegateState
         }
         #endregion
     }
+
+    #region  Examples for Sebastian Lague (Simple Delegates and Lambda)
+
+    public class PlayerStats
+    {
+        public string name;
+        public int kills;
+        public int deaths;
+        public int flagsCaptured;
+    }
+
+    public class DisplayPlayerNames
+    {
+        delegate int ScoreDelegate(PlayerStats stats);
+
+        void OnGameOver(PlayerStats[] allPlayerStats)
+        {
+            string playerNameMostKills = GetPlayerNameTopScore(allPlayerStats, ScoreByKillCount); // с лямбдой удаляем методы ScoreByKillCount и записываем в аргументах allPlayerStats, stats => stats.kills
+            string playerNameMostFlagsCaptured = GetPlayerNameTopScore(allPlayerStats, ScoreByFlagCapture); // с лямбдой удаляем методы ScoreByFlagCapture и записываем в аргументах allPlayerStats, stats => stats.flagsCaptured
+            //string playerNameMostKills = GetPlayerNameMostKills(allPlayerStats); // Использование без делегата
+            //string playerNameMostFlagsCaptured = GetPlayerNameMostFlagsCaptured(allPlayerStats); // Использование без делегата
+        }
+
+        int ScoreByKillCount(PlayerStats stats)// C использованием делегата
+        {
+            return stats.kills;
+        }
+
+        int ScoreByFlagCapture(PlayerStats stats)// C использованием делегата
+        {
+            return stats.flagsCaptured;
+        }
+
+        // C использованием делегата
+        string GetPlayerNameTopScore(PlayerStats[] allPlayerStats, ScoreDelegate scoreCalculator)
+        {
+            string name = "";
+            int bestScore = 0;
+
+            foreach (PlayerStats stats in allPlayerStats)
+            {
+                int score = scoreCalculator(stats); // используем делегат тут 
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    name = stats.name;
+                }
+            }
+            return name;
+        }
+
+
+        /* // Использование без делегата
+        string GetPlayerNameMostFlagsCaptured(PlayerStats[] allPlayerStats)
+        {
+            string name = "";
+            int bestScore = 0;
+
+            foreach (PlayerStats stats in allPlayerStats)
+            {
+                int score = stats.flagsCaptured; 
+                if(score > bestScore)
+                {
+                    bestScore = score;
+                    name = stats.name;
+                }
+            }
+            return name;
+        }
+        
+        string GetPlayerNameMostKills(PlayerStats[] allPlayerStats)
+        {
+            string name = "";
+            int bestScore = 0;
+
+            foreach (PlayerStats stats in allPlayerStats)
+            {
+                int score = stats.kills; 
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    name = stats.name;
+                }
+            }
+            return name;
+        }*/
+    }
+    #endregion
+    #region Examples for Sebastian Lague (Events)
+
+    public class Player : MonoBehaviour
+    {
+        //public delegate void DeathDelegate();
+        //public event DeathDelegate deathEvent; // при присвоении делегату эвент мы не можем присваивать (=) или вызывать (.deathEvent();) делегат а только += подписываться или -= отписываться от события 
+
+        // еще две вещи Actions and Funcs: - Удобные сокращения для делегатов, при этом не создающие дополнительной функциональности. для доступа using System;
+        public event Action deathEvent; // упрощенная версия двух верхних строки кода
+        
+        //public event Action<int, string, bool> deathEvent; с тремя аргументами
+        
+        //public event Func<int> deathEvent; должен принимать один аргумент
+        
+        //public Func<int, string, bool> myDelegate; // последний аргумент это возвращаемый тип делегата
+        // Эквивалент |
+        //delegate bool MyDelegate(int a, string b);
+        //MyDelegate myDelegate;
+
+        void Die()
+        {
+            if (deathEvent != null) // Проверять все ссылки на другие обьекта на нулл, для избежания ошибки NullReferenceExeption
+            {
+                deathEvent();
+            }
+            // Destroy player object
+            
+        }
+    }
+
+    public class Achievements : MonoBehaviour
+    {
+        void Start()
+        {
+            FindObjectOfType<Player>().deathEvent += OnPlayerDeath; // Добавляем своего рода слушателя
+        }
+
+        public void OnPlayerDeath()
+        {
+            FindObjectOfType<Player>().deathEvent -= OnPlayerDeath; // Удаляем слушателя при уничтодении его в функции Die
+        }
+    }
+
+    public class UserInterface : MonoBehaviour
+    {
+        void Start()
+        {
+            FindObjectOfType<Player>().deathEvent += OnPlayerDeath; // Добавляем своего рода слушателя
+        }
+
+        public void OnPlayerDeath()
+        {
+            FindObjectOfType<Player>().deathEvent -= OnPlayerDeath; // Удаляем слушателя при уничтодении его в функции Die
+        }
+    }
+
+    #endregion
 }
