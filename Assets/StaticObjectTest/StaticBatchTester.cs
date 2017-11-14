@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+// Стаическая пакетная обработка в отличии от динамической в том что статическая обработка происходит при инициализации а динамическая во время выполнения.
 [System.Serializable]
 public struct GameObjectList
 {

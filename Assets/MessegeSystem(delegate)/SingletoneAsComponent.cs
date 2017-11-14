@@ -82,11 +82,11 @@ public class SingletonAsComponent<T> : MonoBehaviour where T : SingletonAsCompon
     }
 }
 // Optimization Unity page 70
-/*public class SomeClass : MonoBehaviour
-{
-    void OnDestroy()
-    {
-        if (MySingltonComponent.IsAlive)
-            MySingltonComponent.Instance.SomeMethod();
-    }
-}*/
+//public class someclass : monobehaviour
+//{
+//    void ondestroy()
+//    {
+//        if (mysingltoncomponent.isalive)
+//            mysingltoncomponent.instance.somemethod();
+//    }
+//}

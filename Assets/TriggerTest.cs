@@ -11,7 +11,11 @@ public class TriggerTest : MonoBehaviour {
     public 
     Rigidbody2D _RB2D;
 
-	void Start ()
+    private string leftcollide = "LeftCollide"; // делаем это для экономии памяти т.к стриг не изменяемые и мы делаем ссылочный тип для всех строк
+    private string rightcollide = "RightCollide";
+
+
+    void Start ()
     {
         _RB2D = GetComponent<Rigidbody2D>();
         /*
@@ -24,11 +28,11 @@ public class TriggerTest : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("LeftCollide"))
+        if (col.gameObject.CompareTag(leftcollide))
         {
             Debug.Log("LeftColEnt");
         }
-        else if (col.gameObject.CompareTag("RightCollide"))
+        else if (col.gameObject.CompareTag(rightcollide))
         {
             Debug.Log("RightColEnt");
         }
@@ -46,11 +50,11 @@ public class TriggerTest : MonoBehaviour {
     void OnTriggerStay2D(Collider2D col)
     {
             _RB2D.sleepMode = RigidbodySleepMode2D.NeverSleep;
-            if (col.gameObject.CompareTag("LeftCollide"))
+            if (col.gameObject.CompareTag(leftcollide))
             {
                 Debug.Log("LeftColStay");
             }
-            else if (col.gameObject.CompareTag("RightCollide"))
+            else if (col.gameObject.CompareTag(rightcollide))
             {
                 Debug.Log("RightColStay");
             }
@@ -68,11 +72,11 @@ public class TriggerTest : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col)
     {
         _RB2D.sleepMode = RigidbodySleepMode2D.StartAwake;
-        if (col.gameObject.CompareTag("LeftCollide"))
+        if (col.gameObject.CompareTag(leftcollide))
         {
             Debug.Log("LeftColEx");
         }
-        else if (col.gameObject.CompareTag("RightCollide"))
+        else if (col.gameObject.CompareTag(rightcollide))
         {
             Debug.Log("RightColEx");
         }

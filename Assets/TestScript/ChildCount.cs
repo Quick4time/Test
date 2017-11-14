@@ -7,7 +7,7 @@ public class ChildCount : MonoBehaviour {
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                //Debug.Log(transform.GetChild(i).name);
+                Debug.Log(transform.GetChild(i).name);
             }
         }
 }

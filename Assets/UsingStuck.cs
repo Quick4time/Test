@@ -27,7 +27,6 @@ public class UsingStuck : MonoBehaviour {
         while(CardStuck.Count > 1)
         {
             PlayingCard PickedCard = CardStuck.Pop();
-
             Debug.Log(PickedCard.Name);
         }
 	

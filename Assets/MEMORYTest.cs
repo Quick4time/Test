@@ -34,7 +34,7 @@ public class ReturnTest : MonoBehaviour, IUpdateableObject {
             _return = false;
             // Page Optimiz 230-235.
             System.GC.Collect();// Принудительный вызов сборщика мусора. Надо включать при остановке игры. Ролика, паузы и т.д
-            UnityEngine.Profiling.Profiler.GetMonoUsedSize();// Используем для проверки выделения памяти и целесообразности использования сборщика мусора.
+            UnityEngine.Profiling.Profiler.GetMonoUsedSizeLong();// Используем для проверки выделения памяти и целесообразности использования сборщика мусора.
             UnityEngine.Profiling.Profiler.GetMonoHeapSize();
             Resources.UnloadAsset(_loadResourse);// Выгрузка конкретного ресурса(Text, AudioClip и т.д) из папки Resources.
         }
@@ -57,18 +57,21 @@ public class ReturnTest : MonoBehaviour, IUpdateableObject {
             }
 
 
-        // Перечитать 239-244- ПОНЯТЬ!!!!
-        void Start()
+        // Если класс используется только в одном коде и он не будет наследоваться то можно заменить struct на class, также при передаче можно использовать ref, readonly
+        void Update()
         {
             string testString = "Hello";
-            DoSomethings(ref testString);
+            DoSomethings(ref testString); // при использовании ref в аргументе метода DoSomethings будет выводиться "World" если нет то "Hello"
             Debug.Log(testString);
 
         }
         void DoSomethings(ref string localstring)
         {
             localstring = "World!";
-        }*/
+        }
+*/
+
+
     // Обьединение строк 246, Оптимизация.
     // Затратное обьединение строк.
     void WrongStringCombine ()
@@ -141,7 +144,25 @@ public class ReturnTest : MonoBehaviour, IUpdateableObject {
     int[] myInts = new int[1000]; // Правильные примеры.
     float[] myFloats = new float[1000];
     bool[] myBools = new bool[1000];
-    string[] myString = new string[1000]; 
+    string[] myString = new string[1000];
+
+    // Избегать использования приводит к появлению памяти в куче возможно уже нет?
+    //GetCompontnts<T>
+    //Mesh.vertices;
+    //Camera.allCameras
+
+    void SomeMethod()
+    {
+
+        MyStruct[] dataObjBad = new MyStruct[100]; // лучше массив структуры создавать внутри цикла .. не так 
+        for (int i = 0; i < 100; i++)
+        {
+            MyStruct dataObjBetter = new MyStruct(); // Лучше создавать тут
+            //dataObjBetter[i].data = i;
+            //DoSomething(dataObjBetter[i]);
+        }
+    }
+
 
     // Страница 252. Замена foreach на for.
     // Пример

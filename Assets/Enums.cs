@@ -2,10 +2,7 @@
 using System.Collections;
 
 public class Enums : MonoBehaviour {
-	
-
     // ВОЗМОЖНО ДОБАВИТЬ ПРАВИЛЬНОЕ ПЕРЕЧИСЛЕНИЕ.
-	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -7,11 +7,13 @@ enum Worker { Peon, Slave }
 
 public class ConfigurablePattern : MonoBehaviour
 {
-    delegate void CurrentlyWeapon();
-    CurrentlyWeapon curWeapon;
+    //delegate void CurrentlyWeapon();
+    //CurrentlyWeapon curWeapon;
+    Action curWeapon;
 
-    delegate void DynamicPatternDelegate();
-    DynamicPatternDelegate DelegateToDo;  
+    //delegate void DynamicPatternDelegate();
+    //DynamicPatternDelegate DelegateToDo;  
+    Action DelegateToDo; // Action это делегат сокращение двух верхних строк.
     Worker myWorker;
 
     private ActionDelegate myAction = new ActionDelegate();
@@ -47,6 +49,7 @@ public class ConfigurablePattern : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             oc = !oc;
+                              
             if (oc)
             {
                 myWorker = Worker.Peon;

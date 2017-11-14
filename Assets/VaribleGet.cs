@@ -17,4 +17,9 @@ public class VaribleGet : MonoBehaviour {
             VarG += 10.0f;
         }
     }
+    // создать метод для уменьшения или прибавления здоровья для инкапсуляции
+    void damage(float damage)
+    {
+        VarG -= damage;
+    }
 }

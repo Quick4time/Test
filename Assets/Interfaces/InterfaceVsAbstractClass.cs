@@ -2,21 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InterfaceVsAbstractClass : MonoBehaviour {
+public class InterfaceVsAbstractClass : Bus {
     // Интерфейс позволяет определять некоторый функционал, не имеющий конкретной реализации.
     // Абстрактный класс - базовый класс, который не предпологает создания экземпляров и может содержать в себе не реализованные члены
     // но при этом он может включать в себя реализованные члены - методы и свойства, которые будут доступны наследникам.
+
+    private void Start()
+    {
+        Move();
+    }
 }
 
+public interface Interf
+{
+
+    void Move();
+}
+
+public class VehicleInterface : MonoBehaviour, Interf
+{
+    public void Move()
+    {
+        Debug.Log("Interface");
+    }
+}
+
+
 // Пример abstract class
-abstract class Vehicle
+public abstract class VehicleAbstract : MonoBehaviour
 {
     public abstract void Move(); // имеет один абстрактный член
+    public abstract int set { get; set; }
 }
-class Bus : Vehicle
+public class Bus : VehicleAbstract
 {
+    public override int set { get; set; }
+
     public override void Move()
     {
+        Debug.Log("AbstractClass");
         // Реализуем метод
     }
 }

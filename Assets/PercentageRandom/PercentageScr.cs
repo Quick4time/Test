@@ -25,8 +25,17 @@ public class PercentageScr : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            int random = GetRandomValue(new RandomSelection(4, 15, 0.8f));
-            Debug.Log(random.ToString());
+            int random = GetRandomValue(new RandomSelection(4, 8, 0.8f)); // Выпадает числа в диапозоне от 4(любое минимальное число) до 5(любое максимальное числр) с вероятностью в 80 %.
+            if (random > 0)
+            {
+                string s = string.Format("Deal {0} damage (its just a test {1}).", random, 2.0f);
+                Debug.Log(s);
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+            
         }
     }
 

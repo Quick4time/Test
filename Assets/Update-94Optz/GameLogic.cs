@@ -45,8 +45,6 @@ public class GameLogic : SingletonAsComponent<GameLogic> {
             {
                 _updateableObjects[i].OnUpdate(dt);
             }
-
         }
     }
-
 }

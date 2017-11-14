@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RadialProgressBar : MonoBehaviour { //IListener 
                                                  // Скрипт не работает (Причина IListener точнее некоректное использование).
@@ -40,9 +41,9 @@ public class RadialProgressBar : MonoBehaviour { //IListener
     [SerializeField]
     private Image content;
     [SerializeField]
-    TMPro.TextMeshProUGUI percentText;
+    TextMeshProUGUI percentText;
     [SerializeField]
-    TMPro.TextMeshProUGUI healthText;
+    TextMeshProUGUI healthText;
     private float ColorSmooth = 4.0f;
     private Color32 CurrentlyColor;
     [SerializeField]

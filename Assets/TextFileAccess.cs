@@ -13,13 +13,13 @@ public class TextFileAccess : MonoBehaviour {
     // Для внутренних файлов.
     public TextAsset TextData = null;
 
-    // Динамическая загрузка текстовых ресурсов.
+    
     public static string LoadTextFromFile(string Filename)
     {
         if (!File.Exists(Filename)) return string.Empty;
         return File.ReadAllText(Filename);
     }
-
+    // Динамическая загрузка текстовых ресурсов.
     public static string[] LoadTextAsLine (string Filename)
     {
         if (!File.Exists(Filename)) return null;

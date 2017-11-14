@@ -5,7 +5,7 @@ using UnityEngine;
 class Solider
 {
     public Human Man { get; set; }
-    public SSoldier Stats { get; set; } // меняем на ISolder если хотим использовать интерфейс
+    public ISolider Stats { get; set; } // меняем на ISolder если хотим использовать интерфейс
 
     public int Weight
     {
@@ -35,7 +35,7 @@ interface ISolider
 }
 
 
-public abstract class SSoldier //interface ISolider
+public abstract class statsSoldier //interface ISolider
 {
     public abstract void ReadyForDuty(); // убрать абстракт и модификатор доступа и в классе тоже
     public string Weapon { get; set; }
@@ -52,7 +52,7 @@ public static class ArrayExtension
     }
 }
 
-public class RussianSoldier : SSoldier
+public class RussianSoldier : ISolider
 {
     public string[] weapon = new string[] { "АК74", "АК74М", "АСВал", "СВ-98", "Печенег"};
     public string Weapon { get; set; }
@@ -73,7 +73,7 @@ public class RussianSoldier : SSoldier
         Weapon = weapon.RandomItem();
     }
 
-    public override void ReadyForDuty() // убрать ovveride
+    public void ReadyForDuty() // убрать ovveride
     {
         Debug.Log("RuArmy");
     }
@@ -117,15 +117,15 @@ public class InterfacesTest : MonoBehaviour
         rusoldier.Man = new Human();
         rusoldier.Stats = new RussianSoldier(); // вот это upcastom полиморфизм
         Debug.Log("Рост: " + rusoldier.Man.Height + "\nВес: " + rusoldier.Man.Weight + "\nОружие: " + rusoldier.Stats.Weapon + "\nЗвание: " + rusoldier.Stats.Rank + "\nРазгрузка: " + rusoldier.Stats.Loadout);
-        rusoldier.Stats.ReadyForDuty(); // сетод абстрактным классом передает
+        rusoldier.Stats.ReadyForDuty(); // метод абстрактным классом передает
 
-        /* // Использование интерфейса
+        // Использование интерфейса
         Solider ussoldier = new Solider();
         ussoldier.Man = new Human();
         ussoldier.Stats = new USASoldier();
         Debug.Log("\nРост: " + ussoldier.Man.Height + "\nВес: " + ussoldier.Man.Weight  + "\nОружие: " + ussoldier.Stats.Weapon + "\nЗвание: " + ussoldier.Stats.Rank + "\nРазгрузка: " + ussoldier.Stats.Loadout);
         ussoldier.Stats.ReadyForDuty();
-        */
+        
     }
 }
 

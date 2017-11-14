@@ -4,11 +4,16 @@ using System.Collections.Generic;
 
 // Оптимизация Unity - Profiler. Страница 38 && Страница 42.
 public class ProfilerScript : MonoBehaviour {
-    //void\s* Update\s*?\(\s*\)\s*?\n*?\{\n*?\s*?\} Жмем Ctrl+F и вводим это регулярное выражение на поиск пустых методов где Update это название Метода(стр 62).
+    //private\s* void\s* Start\s*?\(\s*\)\s*?\n*?\{\n*?\s*?\} Жмем Ctrl+F и вводим это регулярное выражение на поиск пустых методов где Update это название Метода(стр 62).
 
 void Awake()
     {
         Application.targetFrameRate = 60; // Достижения определенного кадра в секунду.
+    }
+
+    private void Start()
+    {
+        
     }
 
     void Update()

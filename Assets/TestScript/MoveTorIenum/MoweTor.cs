@@ -50,13 +50,13 @@ public class MoweTor : MonoBehaviour {
     void MoweTorw()
     {
         GameObject Nearst = target[0];
-        float shortestDist = Vector2.Distance(transform.position, target[0].transform.position);
+        float shortestDist = Vector3.Distance(transform.position, target[0].transform.position);
         float step = speed * Time.deltaTime;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 2.3f, LayEnemy);
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, 2.3f, LayEnemy);
 
         foreach (GameObject obj in target)
         {
-            float Distance = Vector2.Distance(transform.position, obj.transform.position);
+            float Distance = Vector3.Distance(transform.position, obj.transform.position);
             if (Distance < shortestDist)
             {
                 Nearst = obj;
@@ -67,8 +67,8 @@ public class MoweTor : MonoBehaviour {
         {
             if (colliders[i].gameObject != gameObject)
             {
-                transform.position = Vector2.MoveTowards(transform.position, Nearst.transform.position, step); // плавное перемещение
-                //transform.position = Vector2.MoveTowards(transform.position, Nearst.transform.position, speed); // мгновенное премещение
+                transform.position = Vector3.MoveTowards(transform.position, Nearst.transform.position, step); // плавное перемещение
+                //transform.position = Vector2.MoveTowards(transform.position, Nearst.transform.position, speed * Time.deltaTime); // мгновенное премещение
             }
         }
         /*

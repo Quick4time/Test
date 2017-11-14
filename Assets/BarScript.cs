@@ -10,10 +10,6 @@ public class BarScript : MonoBehaviour {
 
     [SerializeField]
     private Image content;
-
-	void Start () {
-		
-	}
 	
 	void Update ()
     {
